@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Operação Eleições 2026 — Mapa de Ocorrências</title>
+<meta name="description" content="Painel de ocorrências por zona eleitoral de Sergipe, atualizado automaticamente a partir da planilha operacional.">
+<link rel="preload" as="image" href="./assets/mapa-zonas.webp">
+<style>
+:root{--navy:#073765;--navy2:#0b4e87;--bg:#eef3f8;--card:#fff;--text:#172538;--muted:#5b6d82;--line:#d8e1eb;
+--red:#d9435d;--green:#43a447;--orange:#ee9418;--purple:#9f45be;--yellow:#e5cc00;--focus:#106fc4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
+.app{max-width:1500px;margin:auto;padding:18px}
+.top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+h1{font-size:22px;margin:0;color:var(--navy)}
+.sub{font-size:12px;color:var(--muted)}
+button,select,input{font:inherit;color:inherit}
+button,select,input[type=search]{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 12px;min-height:38px}
+button{cursor:pointer}
+button.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+button:focus-visible,select:focus-visible,input:focus-visible,.occ:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+input[type=search]{width:190px}
+.status{margin-left:auto;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;background:#35a853;flex:none}
+.status.err .dot{background:#d93025}.status.busy .dot{background:var(--orange)}
+.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(340px,.65fr);gap:14px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.head{background:var(--navy);color:#fff;padding:11px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.head small{opacity:.85}
+.mapbox{background:#e9eef3;padding:8px}
+.mapwrap{position:relative;border-radius:8px;overflow:hidden;border:1px solid #c9d3dd;line-height:0}
+.map{width:100%;height:auto;display:block}
+.hotspot{position:absolute;border:2px solid transparent;background:transparent;border-radius:10px;padding:0;min-height:0;cursor:pointer;transition:box-shadow .15s,border-color .15s}
+.hotspot:hover,.hotspot.active{border-color:#fff;box-shadow:0 0 0 3px rgba(16,111,196,.85),0 4px 14px rgba(0,0,0,.2)}
+.hotspot:focus-visible{outline:3px solid var(--focus);outline-offset:1px}
+.hotspot::after{content:"";position:absolute;inset:0;border-radius:8px;background:rgba(7,55,101,0);transition:background .2s;pointer-events:none}
+.mapwrap.has-sel .hotspot:not(.active)::after{background:rgba(7,55,101,.42)}
+.badge{position:absolute;right:6px;top:6px;min-width:26px;text-align:center;background:#073765;color:#fff;border-radius:20px;padding:3px 8px;font-size:12px;font-weight:700;line-height:1.3;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.badge.grave{background:#e52642}
+.badge.pulse{animation:pulse 1.2s ease-out 4}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(229,38,66,.8)}100%{box-shadow:0 0 0 14px rgba(229,38,66,0)}}
+.h03{left:.9%;top:15.6%;width:32.1%;height:40.1%}.h04{left:33.9%;top:15.6%;width:32.2%;height:40.1%}.h08{left:67%;top:15.6%;width:32.1%;height:40.1%}
+.h16{left:.9%;top:56.9%;width:32.1%;height:39%}.h34{left:33.9%;top:56.9%;width:32.2%;height:39%}
+.zonebar{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:9px}
+.z{border:2px solid transparent;font-weight:700;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:6px;color:#fff}
+.z em{font-style:normal;background:rgba(0,0,0,.22);border-radius:12px;padding:1px 8px;font-size:12px}
+.z.active{border-color:var(--navy);box-shadow:0 0 0 2px #fff inset}
+.z03{background:var(--yellow);color:#1b2400}.z04{background:#3a9a3e}.z08{background:var(--red)}.z16{background:var(--purple)}.z34{background:#b86e00}
+.z03 em{background:rgba(0,0,0,.14)}
+.note{padding:10px 12px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 12px 0}
+.metric{border:1px solid var(--line);border-radius:10px;padding:10px;background:#f9fbfd}
+.metric b{display:block;font-size:22px}.metric span{font-size:12px;color:var(--muted)}
+.metric.alta{border-top:3px solid var(--red)}
+.filters{padding:10px 12px 4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.linkbtn{border:0;background:none;color:var(--navy2);text-decoration:underline;padding:4px;min-height:0;font-size:12px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px 10px}
+.summary-card{border:1px solid var(--line);border-radius:10px;background:#fbfcfe;padding:10px}
+.summary-title{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.summary-row{display:grid;grid-template-columns:62px 1fr 28px;gap:7px;align-items:center;margin:6px 0;font-size:12px}
+.summary-label{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar{height:8px;background:#e6edf4;border-radius:8px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--navy2);border-radius:8px;transition:width .3s}
+.summary-count{text-align:right;font-weight:700}
+.empty-summary{font-size:12px;color:var(--muted)}
+.list{padding:0 12px 12px;max-height:560px;overflow:auto}
+.occ{border:1px solid var(--line);border-left:4px solid var(--green);border-radius:9px;padding:9px 10px;margin-bottom:8px;background:#fff;cursor:pointer}
+.occ.alta{border-left-color:var(--red)}.occ.moderada{border-left-color:var(--orange)}.occ.baixa{border-left-color:var(--green)}
+.occ:hover{background:#f7fafc}
+.occ.sel{background:#eaf3fc;border-color:var(--focus)}
+.occ.new{animation:flash 2.4s ease-out 2}
+@keyframes flash{0%{background:#fff3b0}100%{background:#fff}}
+.occ-top{display:flex;justify-content:space-between;gap:6px}
+.occ-title{font-weight:700;font-size:13px}.time{font-size:11px;color:var(--muted);white-space:nowrap}
+.occ-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.occ-registrador{font-size:11px;color:#334155;margin-top:4px;font-weight:600}
+.tag{display:inline-block;margin-top:6px;padding:3px 7px;background:#edf3f8;border-radius:5px;font-size:11px}
+.tag.new{background:#fff3b0;font-weight:700}
+.zdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:baseline}
+.detail{padding:12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#f8fafc;position:relative}
+.detail[hidden]{display:none}
+.detail h3{margin:0 28px 6px 0;font-size:15px}.detail p{font-size:13px;line-height:1.45;margin:5px 0}
+.detail .close{position:absolute;right:8px;top:8px;min-height:0;padding:2px 9px;font-size:16px;line-height:1.3}
+.empty{font-size:13px;color:var(--muted);padding:6px 2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.zonebar{grid-template-columns:repeat(2,1fr)}.status{margin-left:0;width:100%}.summary-grid{grid-template-columns:1fr}input[type=search]{width:100%}.list{max-height:70vh}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div>
+      <h1>OPERAÇÃO ELEIÇÕES 2026 — MAPA DE OCORRÊNCIAS</h1>
+      <div class="sub">Planilha → GitHub (a cada ~5 min) → este painel (verifica a cada 1 min)</div>
+    </div>
+    <label class="sr" for="zone">Zona</label>
+    <select id="zone"><option value="TODAS">Todas as zonas</option><option value="03">Zona 03</option><option value="04">Zona 04</option><option value="08">Zona 08</option><option value="16">Zona 16</option><option value="34">Zona 34</option></select>
+    <label class="sr" for="type">Tipo</label>
+    <select id="type"><option value="TODOS">Todos os tipos</option></select>
+    <label class="sr" for="grav">Gravidade</label>
+    <select id="grav"><option value="TODAS">Todas as gravidades</option></select>
+    <label class="sr" for="q">Buscar</label>
+    <input type="search" id="q" placeholder="Buscar local, tipo…" autocomplete="off">
+    <button class="primary" id="refresh">↻ Atualizar</button>
+    <button id="csv" title="Baixar as ocorrências filtradas (CSV para Excel)">⬇ CSV</button>
+    <div class="status busy" id="statusbox" role="status" aria-live="polite"><span class="dot"></span><span id="status">Conectando…</span></div>
+  </div>
+
+  <div class="layout">
+    <section class="card">
+      <div class="head"><strong>ZONAS ELEITORAIS DE SERGIPE</strong><small>Clique na zona para filtrar (clique de novo para limpar)</small></div>
+      <div class="mapbox">
+        <div class="mapwrap" id="mapwrap">
+          <img class="map" src="./assets/mapa-zonas.webp" width="1536" height="1024" alt="Mapa institucional das zonas eleitorais 03, 04, 08, 16 e 34 de Sergipe">
+          <button class="hotspot h03" data-zone="03" aria-label="Zona 03"></button>
+          <button class="hotspot h04" data-zone="04" aria-label="Zona 04"></button>
+          <button class="hotspot h08" data-zone="08" aria-label="Zona 08"></button>
+          <button class="hotspot h16" data-zone="16" aria-label="Zona 16"></button>
+          <button class="hotspot h34" data-zone="34" aria-label="Zona 34"></button>
+        </div>
+      </div>
+      <div class="zonebar">
+        <button class="z z03" data-zone="03">ZONA 03 <em>0</em></button>
+        <button class="z z04" data-zone="04">ZONA 04 <em>0</em></button>
+        <button class="z z08" data-zone="08">ZONA 08 <em>0</em></button>
+        <button class="z z16" data-zone="16">ZONA 16 <em>0</em></button>
+        <button class="z z34" data-zone="34">ZONA 34 <em>0</em></button>
+      </div>
+      <div class="note">Os números nas zonas respeitam os filtros de tipo, gravidade e busca. Badge vermelho = há ocorrência grave. Os pontos exatos das ocorrências serão adicionados quando houver cadastro de latitude/longitude ou vínculo dos locais de votação.</div>
+    </section>
+
+    <aside class="card">
+      <div class="head"><strong id="title">TODAS AS OCORRÊNCIAS</strong><small id="last">—</small></div>
+      <div class="metrics">
+        <div class="metric"><b id="mTotal">0</b><span>Ocorrências</span></div>
+        <div class="metric alta"><b id="mAlta">0</b><span>Graves</span></div>
+        <div class="metric"><b id="mZones">0</b><span>Zonas com registros</span></div>
+      </div>
+      <div class="filters"><span id="count" class="sub"></span><button class="linkbtn" id="clear" hidden>Limpar filtros</button></div>
+      <div class="summary-grid">
+        <div class="summary-card"><div class="summary-title">OCORRÊNCIAS POR ZONA</div><div id="zoneSummary"></div></div>
+        <div class="summary-card"><div class="summary-title">TIPOS DE OCORRÊNCIA</div><div id="typeSummary"></div></div>
+      </div>
+      <div class="detail" id="detail" hidden></div>
+      <div class="list" id="list" aria-label="Lista de ocorrências"></div>
+    </aside>
+  </div>
+</div>
+
+<script>
+'use strict';
+const DATA_URL='./dados/ocorrencias.json';
+const POLL_MS=60*1000;
+const ZONES=['03','04','08','16','34'];
+const ZONE_COLOR={'03':'#e5cc00','04':'#3a9a3e','08':'#d9435d','16':'#9f45be','34':'#ee9418'};
+
+let DATA=[], lastText=null, selected='TODAS', selectedId=null, loading=false, firstLoad=true;
+let newIds=new Set(), newTimer=null;
+const $=id=>document.getElementById(id);
+
+/* ---------- utilidades ---------- */
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const normZone=z=>{let t=String(z??'').toUpperCase().replace(/ZONA|[º°ª]/g,'').trim();return /^\d+$/.test(t)?t.padStart(2,'0'):t};
+const zoneName=z=>ZONES.includes(z)?'Zona '+z:z;
+const sevClass=v=>{const s=String(v||'').toLowerCase();return /alta|grave/.test(s)?'alta':/moder/.test(s)?'moderada':'baixa'};
+function parseTs(s){ // dd/mm/aaaa hh:mm[:ss] -> epoch
+  const m=String(s||'').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})[ ,]+(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+  return m?new Date(+m[3],+m[2]-1,+m[1],+m[4],+m[5],+(m[6]||0)).getTime():0;
+}
+const normalize=r=>({...r,id:String(r.id),zona:normZone(r.zona),_t:parseTs(r.timestamp)});
+const norm=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+
+/* ---------- filtros ---------- */
+function matches(x,{ignoreZone=false}={}){
+  const t=$('type').value,g=$('grav').value,q=norm($('q').value.trim());
+  if(!ignoreZone&&selected!=='TODAS'&&x.zona!==selected)return false;
+  if(t!=='TODOS'&&x.tipo!==t)return false;
+  if(g!=='TODAS'&&x.gravidade!==g)return false;
+  if(q&&!norm([x.local,x.tipo,x.gravidade,x.responsavel,x.zona].join(' ')).includes(q))return false;
+  return true;
+}
+const filtered=()=>DATA.filter(x=>matches(x));
+
+function fillSelect(sel,allValue,allLabel,values){
+  const cur=sel.value;
+  sel.innerHTML='';
+  sel.append(new Option(allLabel,allValue));
+  values.forEach(v=>sel.append(new Option(v,v)));
+  sel.value=[...sel.options].some(o=>o.value===cur)?cur:allValue;
+}
+function populateFilters(){
+  const uniq=k=>[...new Set(DATA.map(x=>x[k]))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  fillSelect($('type'),'TODOS','Todos os tipos',uniq('tipo'));
+  const sevOrder={Baixa:0,Moderada:1,Grave:2};
+  fillSelect($('grav'),'TODAS','Todas as gravidades',uniq('gravidade').sort((a,b)=>(sevOrder[a]??9)-(sevOrder[b]??9)));
+  // zonas fora das cinco do mapa (ex.: LOGISTICA) continuam acessíveis pelo seletor
+  const zs=$('zone');
+  [...zs.querySelectorAll('option[data-extra]')].forEach(o=>o.remove());
+  [...new Set(DATA.map(x=>x.zona))].filter(z=>z&&!ZONES.includes(z)).sort().forEach(z=>{const o=new Option('Outros: '+z,z);o.dataset.extra='1';zs.append(o)});
+  zs.value=[...zs.options].some(o=>o.value===selected)?selected:'TODAS';
+  selected=zs.value;
+}
+
+/* ---------- renderização ---------- */
+function renderSummary(rows){
+  const present=[...new Set(rows.map(x=>x.zona))].filter(z=>z&&!ZONES.includes(z)).sort();
+  const zl=[...ZONES,...present];
+  const counts=zl.map(z=>[z,rows.filter(x=>x.zona===z).length]);
+  const max=Math.max(1,...counts.map(c=>c[1]));
+  $('zoneSummary').innerHTML=counts.map(([z,n])=>`<div class="summary-row"><span class="summary-label" title="${esc(zoneName(z))}">${esc(ZONES.includes(z)?'Z'+z:z)}</span><span class="bar"><i style="width:${Math.round(n/max*100)}%"></i></span><span class="summary-count">${n}</span></div>`).join('');
+  const map={};rows.forEach(x=>{const t=x.tipo||'Não informado';map[t]=(map[t]||0)+1});
+  const types=Object.entries(map).sort((a,b)=>b[1]-a[1]);
+  const mt=Math.max(1,...types.map(x=>x[1]));
+  $('typeSummary').innerHTML=types.length?types.map(([t,n])=>`<div class="summary-row"><span class="summary-label" title="${esc(t)}">${esc(t)}</span><span class="bar"><i style="width:${Math.round(n/mt*100)}%"></i></span><span class="summary-count">${n}</span></div>`).join(''):'<div class="empty-summary">Nenhum registro.</div>';
+}
+function renderZoneBadges(){
+  const base=DATA.filter(x=>matches(x,{ignoreZone:true}));
+  ZONES.forEach(z=>{
+    const rows=base.filter(x=>x.zona===z), n=rows.length;
+    const grave=rows.some(x=>sevClass(x.gravidade)==='alta');
+    const fresh=rows.some(x=>newIds.has(x.id));
+    const hs=document.querySelector(`.hotspot[data-zone="${z}"]`);
+    hs.innerHTML=n?`<span class="badge${grave?' grave':''}${fresh?' pulse':''}">${n}</span>`:'';
+    hs.title=`Zona ${z}: ${n} ocorrência(s)`;
+    hs.setAttribute('aria-label',`Zona ${z}, ${n} ocorrência(s)`);
+    document.querySelector(`.z[data-zone="${z}"] em`).textContent=n;
+  });
+}
+function render(){
+  const rows=filtered().sort((a,b)=>b._t-a._t);
+  $('title').textContent=selected==='TODAS'?'TODAS AS OCORRÊNCIAS':zoneName(selected).toUpperCase()+' — OCORRÊNCIAS';
+  $('mTotal').textContent=rows.length;
+  $('mAlta').textContent=rows.filter(x=>sevClass(x.gravidade)==='alta').length;
+  $('mZones').textContent=new Set(rows.map(x=>x.zona)).size;
+  $('count').textContent=`${rows.length} de ${DATA.length} registro(s)`;
+  $('clear').hidden=!(selected!=='TODAS'||$('type').value!=='TODOS'||$('grav').value!=='TODAS'||$('q').value);
+  renderSummary(rows);
+  renderZoneBadges();
+  $('list').innerHTML=rows.map(x=>{
+    const fresh=newIds.has(x.id);
+    return `<article class="occ ${sevClass(x.gravidade)}${fresh?' new':''}${x.id===selectedId?' sel':''}" role="button" tabindex="0" data-id="${esc(x.id)}">
+      <div class="occ-top"><div class="occ-title">${esc(x.tipo||'Não informado')}</div><div class="time">${esc(x.timestamp)}</div></div>
+      <div class="occ-meta"><span class="zdot" style="background:${ZONE_COLOR[x.zona]||'#8aa0b5'}"></span>${esc(zoneName(x.zona))} • ${esc(x.local)}</div>
+      ${x.responsavel?`<div class="occ-registrador">Registrado por: ${esc(x.responsavel)}</div>`:''}
+      <span class="tag">${esc(x.gravidade||'—')}</span>${fresh?' <span class="tag new">NOVA</span>':''}
+    </article>`}).join('')||'<p class="empty">Nenhuma ocorrência encontrada com os filtros atuais.</p>';
+  document.querySelectorAll('.hotspot,.zonebar .z').forEach(b=>{const on=b.dataset.zone===selected;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on)});
+  $('mapwrap').classList.toggle('has-sel',ZONES.includes(selected));
+  renderDetail();
+  syncHash();
+}
+function renderDetail(){
+  const box=$('detail'), x=DATA.find(r=>r.id===selectedId);
+  if(!x){box.hidden=true;box.innerHTML='';return}
+  box.hidden=false;
+  box.innerHTML=`<button class="close" aria-label="Fechar detalhes" id="closeDetail">×</button>
+    <h3>${esc(x.tipo||'Ocorrência')} — ${esc(zoneName(x.zona))}</h3>
+    ${x.responsavel?`<p><b>Registrado por:</b> ${esc(x.responsavel)}</p>`:''}
+    <p><b>Local:</b> ${esc(x.local||'—')}</p>
+    <p><b>Data/hora:</b> ${esc(x.timestamp)}</p>
+    <p><b>Gravidade:</b> ${esc(x.gravidade||'—')}</p>
+    <p><b>Relato:</b> ${esc(x.relato||'Relato não disponibilizado no painel público.')}</p>
+    <p class="sub">ID ${esc(x.id)}</p>`;
+}
+function selectOcc(id){
+  selectedId=selectedId===id?null:id;
+  render();
+  if(selectedId&&matchMedia('(max-width:900px)').matches)$('detail').scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function chooseZone(z){selected=(selected===z)?'TODAS':z;$('zone').value=selected;render()}
+
+/* ---------- estado na URL (#zona=16&tipo=APH) ---------- */
+function syncHash(){
+  const p=new URLSearchParams();
+  if(selected!=='TODAS')p.set('zona',selected);
+  if($('type').value!=='TODOS')p.set('tipo',$('type').value);
+  if($('grav').value!=='TODAS')p.set('grav',$('grav').value);
+  if($('q').value)p.set('q',$('q').value);
+  const h=p.toString();
+  try{history.replaceState(null,'',h?'#'+h:location.pathname+location.search)}catch(_){}
+}
+let hashInit={};
+function readHash(){const p=new URLSearchParams(location.hash.slice(1));hashInit={zona:p.get('zona'),tipo:p.get('tipo'),grav:p.get('grav')};
+  if(p.get('zona'))selected=normZone(p.get('zona'));
+  if(p.get('q'))$('q').value=p.get('q');}
+function applyHashSelects(){ // depois que as opções existem
+  if(hashInit.zona&&[...$('zone').options].some(o=>o.value===selected))$('zone').value=selected;else if(hashInit.zona){selected='TODAS'}
+  if(hashInit.tipo&&[...$('type').options].some(o=>o.value===hashInit.tipo))$('type').value=hashInit.tipo;
+  if(hashInit.grav&&[...$('grav').options].some(o=>o.value===hashInit.grav))$('grav').value=hashInit.grav;
+  hashInit={};
+}
+
+/* ---------- carregamento ---------- */
+function setStatus(kind,text){$('statusbox').className='status '+kind;$('status').textContent=text}
+async function atualizarDados(manual=false){
+  if(loading)return; loading=true;
+  setStatus('busy',manual?'Atualizando…':'Verificando…');
+  const ctrl=new AbortController(), to=setTimeout(()=>ctrl.abort(),15000);
+  try{
+    const r=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store',signal:ctrl.signal});
+    if(!r.ok)throw new Error(`HTTP ${r.status} ao ler ${DATA_URL}`);
+    const text=await r.text();
+    const hora=new Date().toLocaleTimeString('pt-BR');
+    $('last').textContent='verificado '+hora;
+    if(text===lastText){setStatus('',`Conectado • ${DATA.length} registros • sem novidades (${hora})`);return}
+    const novos=JSON.parse(text);
+    if(!Array.isArray(novos))throw new Error('Formato de dados inválido (esperado uma lista).');
+    const antigos=new Set(DATA.map(x=>x.id));
+    DATA=novos.map(normalize);
+    lastText=text;
+    newIds=firstLoad?new Set():new Set(DATA.filter(x=>!antigos.has(x.id)).map(x=>x.id));
+    populateFilters();
+    if(firstLoad){applyHashSelects();firstLoad=false}
+    render();
+    if(newIds.size){clearTimeout(newTimer);newTimer=setTimeout(()=>{newIds=new Set();render()},12000)}
+    setStatus('',`Conectado • ${DATA.length} registros${newIds.size?` • +${newIds.size} nova(s)`:''} (${hora})`);
+  }catch(e){
+    console.error(e);
+    setStatus('err',DATA.length?`Sem conexão — exibindo dados já carregados (${DATA.length})`:'Falha ao carregar os dados');
+    $('last').textContent='falha';
+    if(manual)alert('Não foi possível carregar os dados.\n\n'+(e?.name==='AbortError'?'Tempo esgotado.':e?.message||e)+'\n\nConfira se dados/ocorrencias.json está publicado no repositório.');
+  }finally{clearTimeout(to);loading=false}
+}
+
+/* ---------- CSV ---------- */
+function exportCsv(){
+  const rows=filtered().sort((a,b)=>a._t-b._t);
+  const withResp=rows.some(x=>x.responsavel);
+  const cols=['timestamp','zona','local','tipo','gravidade',...(withResp?['responsavel']:[]),'relato'];
+  const cell=v=>{let s=String(v??'');if(/^[=+\-@\t\r]/.test(s))s="'"+s;return /[";\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
+  const csv='﻿'+[cols.join(';'),...rows.map(r=>cols.map(c=>cell(r[c])).join(';'))].join('\r\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download=`ocorrencias${selected!=='TODAS'?'-zona'+selected:''}-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+
+/* ---------- eventos ---------- */
+document.addEventListener('click',e=>{
+  const zb=e.target.closest('[data-zone]');if(zb){chooseZone(zb.dataset.zone);return}
+  const occ=e.target.closest('.occ');if(occ){selectOcc(occ.dataset.id);return}
+  if(e.target.id==='closeDetail'){selectedId=null;render()}
+});
+$('list').addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('occ')){e.preventDefault();selectOcc(e.target.dataset.id)}
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&e.target.tagName!=='INPUT'){if(selectedId)selectedId=null;else selected='TODAS';$('zone').value=selected;render()}
+});
+$('zone').addEventListener('change',e=>{selected=e.target.value;render()});
+$('type').addEventListener('change',render);$('grav').addEventListener('change',render);
+$('q').addEventListener('input',render);
+$('clear').addEventListener('click',()=>{selected='TODAS';$('zone').value='TODAS';$('type').value='TODOS';$('grav').value='TODAS';$('q').value='';render()});
+$('refresh').addEventListener('click',()=>atualizarDados(true));
+$('csv').addEventListener('click',exportCsv);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)atualizarDados(false)});
+setInterval(()=>{if(!document.hidden)atualizarDados(false)},POLL_MS);
+
+readHash();
+render();
+atualizarDados(false);
+</script>
+</body>
+</html>

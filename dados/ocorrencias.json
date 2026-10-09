@@ -1,0 +1,422 @@
+[
+  {
+    "id": "c52c2767a060",
+    "timestamp": "04/10/2026 07:25:03",
+    "responsavel": "SD HOHENFELD",
+    "zona": "16",
+    "local": "Grupo Escolar General Calazans",
+    "tipo": "Tumulto",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Tumulto — gravidade Baixa."
+  },
+  {
+    "id": "7417b832c636",
+    "timestamp": "04/10/2026 09:29:36",
+    "responsavel": "SD NICOLAS",
+    "zona": "34",
+    "local": "Centro de Exc. Prof. Profa Neuzice Barreto",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "6c58b3701d04",
+    "timestamp": "04/10/2026 09:45:29",
+    "responsavel": "2º SGT CLEITON",
+    "zona": "16",
+    "local": "Escola de 1° Grau Prof. Fernando Azevedo",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "3318b83f57ba",
+    "timestamp": "04/10/2026 10:42:59",
+    "responsavel": "2º TEN EVANDRO",
+    "zona": "16",
+    "local": "Feira Nova",
+    "tipo": "Boca de urna",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Boca de urna — gravidade Baixa."
+  },
+  {
+    "id": "47a281d28164",
+    "timestamp": "04/10/2026 10:45:25",
+    "responsavel": "SD SEVERINO",
+    "zona": "16",
+    "local": "Escola Municipal José Alves de França",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "86e9e258ac3c",
+    "timestamp": "04/10/2026 11:02:23",
+    "responsavel": "2º TEN RICARDO CRUZ",
+    "zona": "34",
+    "local": "Instituto Federal de Sergipe - Campus Socorro",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "ecf5ea37b0ae",
+    "timestamp": "04/10/2026 11:20:58",
+    "responsavel": "3º SGT IMPROTA",
+    "zona": "16",
+    "local": "Escola Municipal Petronilho Menezes Cotia",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "6415400bd29f",
+    "timestamp": "04/10/2026 11:26:07",
+    "responsavel": "3º SGT IMPROTA",
+    "zona": "16",
+    "local": "Escola Municipal Petronilho Menezes Cotia",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "b40b43440b7a",
+    "timestamp": "04/10/2026 11:26:58",
+    "responsavel": "SD HENRIQUES",
+    "zona": "04",
+    "local": "Grupo Escolar Jessé Fontes",
+    "tipo": "APH",
+    "gravidade": "Grave",
+    "relato": "Ocorrência registrada: APH — gravidade Grave."
+  },
+  {
+    "id": "8e8a494d6277",
+    "timestamp": "04/10/2026 11:36:08",
+    "responsavel": "3º SGT IMPROTA",
+    "zona": "16",
+    "local": "Escola Municipal Petronilho Menezes Cotia",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "aa815cd380aa",
+    "timestamp": "04/10/2026 11:45:32",
+    "responsavel": "2º TEN M OLIVEIRA",
+    "zona": "04",
+    "local": "Grupo Escolar Manoel Bomfim",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "d35b26ca28bd",
+    "timestamp": "04/10/2026 12:27:42",
+    "responsavel": "CB VARJAO",
+    "zona": "03",
+    "local": "Escola Estadual Manoel Alcino Nascimento",
+    "tipo": "Outro",
+    "gravidade": "Grave",
+    "relato": "Ocorrência registrada: Outro — gravidade Grave."
+  },
+  {
+    "id": "a9d8d14b78ab",
+    "timestamp": "04/10/2026 12:36:03",
+    "responsavel": "SUB TEN MENESES",
+    "zona": "34",
+    "local": "Centro de Excelência Profissionalizante Profa Neuzice Barreto",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "2c2d2de59b2b",
+    "timestamp": "04/10/2026 12:37:29",
+    "responsavel": "SD PASSOS",
+    "zona": "03",
+    "local": "Escola Municipal Eurico de Souza Filho",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "a776047a6aef",
+    "timestamp": "04/10/2026 12:43:04",
+    "responsavel": "1º TEN LUDUVICE",
+    "zona": "03",
+    "local": "Graccho Cardoso",
+    "tipo": "Outro",
+    "gravidade": "Grave",
+    "relato": "Ocorrência registrada: Outro — gravidade Grave."
+  },
+  {
+    "id": "e334673bd009",
+    "timestamp": "04/10/2026 12:57:49",
+    "responsavel": "1º TEN GUILHERME",
+    "zona": "08",
+    "local": "Itabi",
+    "tipo": "Outro",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Outro — gravidade Baixa."
+  },
+  {
+    "id": "485fa9b8b8d2",
+    "timestamp": "04/10/2026 13:01:13",
+    "responsavel": "MAJ VALMIR",
+    "zona": "03",
+    "local": "Graccho Cardoso",
+    "tipo": "Outro",
+    "gravidade": "Grave",
+    "relato": "Ocorrência registrada: Outro — gravidade Grave."
+  },
+  {
+    "id": "714e52195dd0",
+    "timestamp": "04/10/2026 13:56:46",
+    "responsavel": "SUB TEN PERLA",
+    "zona": "16",
+    "local": "Sede",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "da4a2c83a8fe",
+    "timestamp": "04/10/2026 13:56:54",
+    "responsavel": "2º TEN RAMOS",
+    "zona": "34",
+    "local": "Instituto Federal de Sergipe - Campus Socorro",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "efc44ee204e5",
+    "timestamp": "04/10/2026 14:21:51",
+    "responsavel": "2º TEN RICARDO CRUZ",
+    "zona": "34",
+    "local": "Colégio Estadual Presidente Juscelino Kubistchek",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "2c975e9b2805",
+    "timestamp": "04/10/2026 14:29:21",
+    "responsavel": "SUB TEN ADINALDO",
+    "zona": "08",
+    "local": "Escola Estadual José Augusto da Rocha Lima",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "fdf3ffd53598",
+    "timestamp": "04/10/2026 14:36:36",
+    "responsavel": "2º TEN RICARDO CRUZ",
+    "zona": "34",
+    "local": "Colégio Estadual Presidente Juscelino Kubistchek",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "116784a890d3",
+    "timestamp": "04/10/2026 15:28:09",
+    "responsavel": "CAP ADEMIR",
+    "zona": "34",
+    "local": "Colégio Estadual Presidente Juscelino Kubistchek",
+    "tipo": "Tumulto",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Tumulto — gravidade Baixa."
+  },
+  {
+    "id": "d3edb87d2647",
+    "timestamp": "04/10/2026 15:47:47",
+    "responsavel": "SUB TEN MENESES",
+    "zona": "34",
+    "local": "Centro de Excelência Profissionalizante Profa Neuzice Barreto",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "bbdc41eafd8b",
+    "timestamp": "04/10/2026 16:04:58",
+    "responsavel": "2º TEN CARLOS NETO",
+    "zona": "08",
+    "local": "Escola Estadual Maria das Graças Menezes Moura",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "7fb147bcc4f0",
+    "timestamp": "04/10/2026 16:08:25",
+    "responsavel": "SUB TEN R NUNES",
+    "zona": "34",
+    "local": "Escola Estadual Prof. Diomedes Santos Da Silva",
+    "tipo": "Tumulto",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Tumulto — gravidade Baixa."
+  },
+  {
+    "id": "036de24bab59",
+    "timestamp": "04/10/2026 16:10:09",
+    "responsavel": "2º SGT TACITO",
+    "zona": "34",
+    "local": "Colégio Estadual Prof. José Barreto Fontes",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "da3a10784eca",
+    "timestamp": "04/10/2026 16:27:33",
+    "responsavel": "SUB TEN GILVANDO",
+    "zona": "04",
+    "local": "ESCOLA MUNICIPAL DR. LUIZ GARCIA",
+    "tipo": "Desobediência",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Desobediência — gravidade Baixa."
+  },
+  {
+    "id": "21c28fcd5aa1",
+    "timestamp": "04/10/2026 16:28:37",
+    "responsavel": "2º TEN GUEDES",
+    "zona": "34",
+    "local": "Escola Estadual Dr. José Freire Da Costa Pinto",
+    "tipo": "Tumulto",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Tumulto — gravidade Baixa."
+  },
+  {
+    "id": "9cad11feb0b3",
+    "timestamp": "04/10/2026 16:48:06",
+    "responsavel": "SUB TEN MARCIA",
+    "zona": "04",
+    "local": "JOAO SIMOES FREIRE, ESCOLA MUNICIPAL",
+    "tipo": "Tumulto",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Tumulto — gravidade Baixa."
+  },
+  {
+    "id": "43f0cb3e47d4",
+    "timestamp": "04/10/2026 16:50:32",
+    "responsavel": "1º TEN GUILHERME",
+    "zona": "08",
+    "local": "Itabi",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "f8459f07ffa0",
+    "timestamp": "04/10/2026 17:18:16",
+    "responsavel": "2º SGT KATHYUCIA",
+    "zona": "08",
+    "local": "Itabi",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "e332189bda8e",
+    "timestamp": "04/10/2026 17:26:40",
+    "responsavel": "SUB TEN C SANTOS",
+    "zona": "34",
+    "local": "Escola Estadual Jorge Amado",
+    "tipo": "Tumulto",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Tumulto — gravidade Baixa."
+  },
+  {
+    "id": "83fc518ff7a1",
+    "timestamp": "04/10/2026 17:33:56",
+    "responsavel": "2º SGT TACITO",
+    "zona": "34",
+    "local": "Colégio Estadual Prof. José Barreto Fontes",
+    "tipo": "Tumulto",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: Tumulto — gravidade Moderada."
+  },
+  {
+    "id": "b048c47709e9",
+    "timestamp": "04/10/2026 18:24:48",
+    "responsavel": "2º SGT ANDREA",
+    "zona": "34",
+    "local": "Nossa Senhora do Socorro",
+    "tipo": "APH",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: APH — gravidade Baixa."
+  },
+  {
+    "id": "30e326b8eaa2",
+    "timestamp": "04/10/2026 18:25:38",
+    "responsavel": "SUB TEN IRAILTON",
+    "zona": "34",
+    "local": "Escola Municipal Diva Maria Correia",
+    "tipo": "Tumulto",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Tumulto — gravidade Baixa."
+  },
+  {
+    "id": "afd2c50ed2f1",
+    "timestamp": "08/10/2026 17:44:27",
+    "responsavel": "CAP NASCIMENTO",
+    "zona": "03",
+    "local": "Aquidabã",
+    "tipo": "Boca de urna",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Boca de urna — gravidade Baixa."
+  },
+  {
+    "id": "69d0cfeed687",
+    "timestamp": "08/10/2026 19:50:56",
+    "responsavel": "CAP NASCIMENTO",
+    "zona": "34",
+    "local": "Escola Estadual Dr. José Freire Da Costa Pinto",
+    "tipo": "APH",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: APH — gravidade Moderada."
+  },
+  {
+    "id": "f94556757e0d",
+    "timestamp": "08/10/2026 19:59:20",
+    "responsavel": "CAP NASCIMENTO",
+    "zona": "LOGISTICA",
+    "local": "Base",
+    "tipo": "Outro",
+    "gravidade": "Baixa",
+    "relato": "Ocorrência registrada: Outro — gravidade Baixa."
+  },
+  {
+    "id": "40ea948d2332",
+    "timestamp": "08/10/2026 20:27:03",
+    "responsavel": "CAP NASCIMENTO",
+    "zona": "03",
+    "local": "EMDAGRO",
+    "tipo": "Desobediência",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: Desobediência — gravidade Moderada."
+  },
+  {
+    "id": "16254cbabf1a",
+    "timestamp": "08/10/2026 22:28:46",
+    "responsavel": "CAP NASCIMENTO",
+    "zona": "03",
+    "local": "Cedro de São João",
+    "tipo": "Desobediência",
+    "gravidade": "Moderada",
+    "relato": "Ocorrência registrada: Desobediência — gravidade Moderada."
+  },
+  {
+    "id": "fe292634abef",
+    "timestamp": "08/10/2026 23:02:01",
+    "responsavel": "CAP NASCIMENTO",
+    "zona": "03",
+    "local": "Aquidabã",
+    "tipo": "Agressão física",
+    "gravidade": "Grave",
+    "relato": "Ocorrência registrada: Agressão física — gravidade Grave."
+  }
+]
